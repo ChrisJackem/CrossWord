@@ -1,9 +1,15 @@
 import { LetterMenuItem, LetterMenu } from './menu.js'
 import { ShowModal } from './modal.js'
 
-//const CONTENT = document.getElementById('content')
 
+// The tiles where the letters live
 class Tile extends HTMLElement{
+
+    /** 
+     * Create a new tile, setup events
+     * @param {Level} parent_level The level parent
+     * @param {string} data The correct letter and an optional number ( '1a' )
+     */
     constructor( parent_level, data ){
         super()
         content.appendChild(this)
@@ -33,17 +39,19 @@ class Tile extends HTMLElement{
 
     // Events
 
-        // Dragover Event
+        // Drag over event
         this.addEventListener("dragover", (e) => {
             e.preventDefault();
             e.dataTransfer.dropEffect = "move"
             this.style= "transition: background-color 0.5s; background-color:green"
         });
+
+        // Drag leave event
         this.addEventListener("dragleave", (e) => {
             this.style.backgroundColor = 'white'
         })
 
-        // Letter has been dropped
+        // Drop event
         this.addEventListener('drop', e => {
             // Set letter
             const data = e.dataTransfer.getData("text")
@@ -59,20 +67,23 @@ class Tile extends HTMLElement{
                 this.my_timeout = null
             },1100)
 
+            // Check tiles for completion
             parent_level.CheckTiles()
         })
-    }
-
-    
+    }    
 }
 
+/**
+ * This handles the actual level -
+ * Getting level data
+ * Creating tiles
+ * Populating the menu and level list buttons
+ * Showing Modal when completed level/game
+ */
 export class Level{
     constructor(){
         this.current_level = undefined
         this.GetLevelData()
-
-        // Create letter drop event        
-        document.body.addEventListener('letter_drop', this.CheckTiles )
 
         // Font size update on resize
         // ( Sets content size -> content uses em )
@@ -152,8 +163,7 @@ export class Level{
     }
 
 
-    BuildLevel( level=null ){      
-
+    BuildLevel( level=null ){
         // If no level sent, find the next incomplete level
         let level_data
         if ( !level ){

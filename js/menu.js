@@ -5,6 +5,10 @@ const MOBILE_ITEM = document.getElementById('menu-item-mobile')
 const MOBILE_ITEM_INNER = document.getElementById('menu-item-mobile-inner')
 const LEVEL = document.getElementById('')
 
+/**
+ * This is the letter menu container
+ * Creates child letter button elements
+ */
 export class LetterMenu extends HTMLElement{
     constructor(){
         super()
@@ -37,7 +41,12 @@ export class LetterMenu extends HTMLElement{
     
 }
 
-// These are the individual letter buttons
+/**
+ *  These are the individual letter buttons
+ * There are events for drag/drop on desktop AND mobile
+ * They both use Tile.drop event to populate the tiles
+ * TODO:: Events should be the same, use mobile events for all
+ */ 
 export class LetterMenuItem extends HTMLElement{
     constructor( data ) {
         super()
@@ -66,7 +75,7 @@ export class LetterMenuItem extends HTMLElement{
         })
     }    
 
-    // mobile
+    // Mobile
     TouchMoveHandler(e){
         e.preventDefault()
         let location = e.targetTouches[0]
@@ -89,6 +98,8 @@ export class LetterMenuItem extends HTMLElement{
     }
     GetCollide(){
         let m = { x: parseInt(MOBILE_ITEM.style.left), y: parseInt(MOBILE_ITEM.style.top), height: MOBILE_ITEM.clientHeight, width: MOBILE_ITEM.clientWidth }
+        
+        // This will hold all the colliding tiles, we will find the closest later
         let collide = []
         
         for ( const tile of level.tiles ){
@@ -101,7 +112,6 @@ export class LetterMenuItem extends HTMLElement{
             if ( !( ((m.y + m.height) < (t.y)) || (m.y > (t.y + t.height)) || ((m.x + m.width) < t.x) || (m.x > (t.x + t.width)) ) ){
                 
                 // Store tile and distance in collide array
-
                 let a = m.x - t.x// Distance calcs
                 let b = m.y - t.y       
 
@@ -122,11 +132,13 @@ export class LetterMenuItem extends HTMLElement{
                 }
             }
 
+            // Save closest, set style
             this.collided_tile = closest_tile
             closest_tile.style = "transition: background-color 0.5s; background-color:green"
         }        
     }
 }
 
+// Custom tags
 window.customElements.define('letter-menu', LetterMenu);
 window.customElements.define('menu-item', LetterMenuItem);
