@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrossWord</title>
+    <link rel="stylesheet" href="./css/animations.css">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <div id="modal" class='hidden'>
+        <div id="modal-inner">
+            <h2 id="modal-title">Welcome to CrossWord</h2>
+            <div id="modal-x"></div>
+            <div id="modal-content">
+                <div id="modal-pic">
+                    <img src="./img/logo.svg">
+                </div>
+                <p>This is a simple crossword app for all browsers. You play by dragging the letters on the left/top panel into the squares in the middle.</p>
+                <br/>
+                <p>Also on the left/top panel are the clues. The numbers correspond to the numbers in the middle grid, across and down.</p>
+                <br/>
+                <p>Once all the letters are placed in the correct places, you will complete the level. See if you can beat them all !</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="nav"><img src="./img/logo.svg"></div>
+
+    <div id="menu-item-mobile" style="display:none">
+        <div id="menu-item-mobile-inner">* </div>
+    </div>
+    <letter-menu id="menu">
+        <div id="menu-tiles"></div>
+        <div id="menu-clues">
+            <h3>Clues:</h3>
+            <ol id="across"></ol>
+            <ol id="down"></ol>
+        </div>
+    </letter-menu>
+
+    <div id="title"></div>
+    <div id="content"></div>
+
+    <div id="levels-title"><h2>Levels</h2></div> 
+    <div id="levels"></div>
+          
+    <div id="footer">2022 Chris Jackem</div>
+    <script type='module' src="./js/main.js"></script>    
+</body>
+</html>

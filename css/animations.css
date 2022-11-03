@@ -1,0 +1,8 @@
+@keyframes bounce {
+    0% { 
+        opacity: 0; 
+        transform: scale( 0.25 );
+    }
+    80%{ opacity: 1; }
+    100% { transform: scale( 1 ); }
+}
